@@ -1,0 +1,17 @@
+apply from: "../../module.gradle"
+
+android {
+
+    defaultConfig {
+        if (isModule.toBoolean()) {
+            applicationId "com.sundy.listen"
+        }
+    }
+
+
+}
+
+dependencies {
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+}

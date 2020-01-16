@@ -1,0 +1,2 @@
+include ':app', ':common', ':basebusiness:greendao', ':business:mine', ':business:mainmodule', ':business:home', ':business:discover', ':business:listen'
+rootProject.name='Himalaya'

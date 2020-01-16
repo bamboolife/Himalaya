@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Discover</string>
+
+    <string name="d_pay_good">付费精品</string>
+    <string name="d_all_read">全民朗读</string>
+    <string name="d_listen_circle">听友圈</string>
+    <string name="d_dkzt">大咖主播</string>
+    <string name="d_wd">问答</string>
+    <string name="d_shopping_mall">商城</string>
+    <string name="d_game">游戏</string>
+    <string name="d_activity">活动</string>
+</resources>
