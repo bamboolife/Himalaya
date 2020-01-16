@@ -31,11 +31,12 @@ import java.util.List;
  * 创建时间：2020-01-16 16:08
  * 描述：
  */
-public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindViewHolder> {
+public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindViewHolder> {
     private Context mContext;
     ObservableList<T> datas;
+    OnItemClickListener mOnItemClickListener;
 
-    public BaseQuickAdapter(){
+    public BaseQuickAdapter() {
 
     }
 
@@ -57,15 +58,25 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
     @NonNull
     @Override
     public BaseBindViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        this.mContext=parent.getContext();
-        DB binding= DataBindingUtil.inflate(LayoutInflater.from(mContext),onBindLayout(viewType), parent, false);
+        this.mContext = parent.getContext();
+        DB binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), onBindLayout(viewType), parent, false);
+
         return new BaseBindViewHolder(binding.getRoot());
     }
 
     @Override
     public void onBindViewHolder(@NonNull BaseBindViewHolder holder, int position) {
-        DB binding= DataBindingUtil.getBinding(holder.itemView);
-        onBindItem(binding,datas.get(position));
+        DB binding = DataBindingUtil.getBinding(holder.itemView);
+        if (mOnItemClickListener != null) {
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(BaseQuickAdapter.this, v, position);
+                }
+            });
+
+        }
+        onBindItem(binding, datas.get(position));
     }
 
     @Override
@@ -79,21 +90,21 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
     }
 
     /**
-     *
      * @param binding
      * @param item
      */
     protected abstract void onBindItem(DB binding, T item);
 
     /**
-     *
      * @param viewType
      * @return
      */
-    protected abstract @LayoutRes int onBindLayout(int viewType);
+    protected abstract @LayoutRes
+    int onBindLayout(int viewType);
 
     /**
      * 设置新的数据源
+     *
      * @param data
      */
     public void setNewData(@Nullable ObservableList<T> data) {
@@ -103,12 +114,13 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
 
     /**
      * 在指定的位置添加一条数据
+     *
      * @param position
      * @param data
      */
     public void addData(@IntRange(from = 0) int position, @NonNull T data) {
         datas.add(position, data);
-         notifyItemInserted(position);
+        notifyItemInserted(position);
     }
 
     /**
@@ -121,6 +133,7 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
 
     /**
      * 移除指定位置的数据
+     *
      * @param position
      */
     public void remove(@IntRange(from = 0) int position) {
@@ -133,17 +146,18 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
      */
     public void setData(@IntRange(from = 0) int index, @NonNull T data) {
         datas.set(index, data);
-        notifyItemChanged(index );
+        notifyItemChanged(index);
     }
 
     /**
      * 在指定的位置添加集合
+     *
      * @param position
      * @param newData
      */
     public void addDatas(@IntRange(from = 0) int position, @NonNull Collection<? extends T> newData) {
         datas.addAll(position, newData);
-        notifyItemRangeInserted(position , newData.size());
+        notifyItemRangeInserted(position, newData.size());
 
     }
 
@@ -155,45 +169,58 @@ public abstract class BaseQuickAdapter<T extends BaseObservable,DB extends ViewD
         notifyItemRangeInserted(datas.size(), newData.size());
 
     }
-     @NonNull
+
+    @NonNull
     public ObservableList<T> getDatas() {
         return datas;
     }
 
     @NonNull
-    public T getItem(@IntRange(from = 0)int position){
-        if (position>=0&&position<datas.size()){
+    public T getItem(@IntRange(from = 0) int position) {
+        if (position >= 0 && position < datas.size()) {
             return datas.get(position);
         }
         return null;
     }
 
+    public OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
 
-    class DatasChangedCallback extends ObservableList.OnListChangedCallback{
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(BaseQuickAdapter adapter, View view, int position);
+    }
+
+    class DatasChangedCallback extends ObservableList.OnListChangedCallback {
 
         @Override
         public void onChanged(ObservableList sender) {
-          BaseQuickAdapter.this.notifyDataSetChanged();
+            BaseQuickAdapter.this.notifyDataSetChanged();
         }
 
         @Override
         public void onItemRangeChanged(ObservableList sender, int positionStart, int itemCount) {
-            BaseQuickAdapter.this.notifyItemRangeChanged(positionStart,itemCount);
+            BaseQuickAdapter.this.notifyItemRangeChanged(positionStart, itemCount);
         }
 
         @Override
         public void onItemRangeInserted(ObservableList sender, int positionStart, int itemCount) {
-             BaseQuickAdapter.this.notifyItemRangeInserted(positionStart,itemCount);
+            BaseQuickAdapter.this.notifyItemRangeInserted(positionStart, itemCount);
         }
 
         @Override
         public void onItemRangeMoved(ObservableList sender, int fromPosition, int toPosition, int itemCount) {
-              BaseQuickAdapter.this.notifyItemRangeRemoved(fromPosition,toPosition);
+            BaseQuickAdapter.this.notifyItemRangeRemoved(fromPosition, toPosition);
         }
 
         @Override
         public void onItemRangeRemoved(ObservableList sender, int positionStart, int itemCount) {
-              BaseQuickAdapter.this.notifyItemRangeRemoved(positionStart,itemCount);
+            BaseQuickAdapter.this.notifyItemRangeRemoved(positionStart, itemCount);
         }
     }
 }

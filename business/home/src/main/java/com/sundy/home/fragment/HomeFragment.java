@@ -4,9 +4,11 @@ package com.sundy.home.fragment;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.sundy.common.base.BaseBindViewHolder;
 import com.sundy.common.base.BaseFragment;
 import com.sundy.common.config.Constants;
 import com.sundy.home.R;
+import com.sundy.home.databinding.BblHomeFgtLayoutBinding;
 
 /**
  * 项目名称：Himalaya
@@ -17,7 +19,7 @@ import com.sundy.home.R;
  * 描述：首页主页
  */
 @Route(path = Constants.Router.Home.F_MAIN)
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<BblHomeFgtLayoutBinding> {
 
     @Override
     protected int onBindLayout() {

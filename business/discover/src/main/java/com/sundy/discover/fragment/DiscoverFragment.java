@@ -16,9 +16,11 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sundy.common.base.BaseFragment;
+import com.sundy.common.base.BaseQuickAdapter;
 import com.sundy.common.config.Constants;
 import com.sundy.common.widget.itemdecoration.Y_Divider;
 import com.sundy.common.widget.itemdecoration.Y_DividerBuilder;
@@ -76,6 +78,17 @@ public class DiscoverFragment extends BaseFragment<BblDiscoverFgtLayoutBinding> 
         items.add(new DiscoverBean(R.drawable.ic_discover_yx, R.color.d_yx, getString(R.string.d_game)));
         items.add(new DiscoverBean(R.drawable.ic_discover_hd, R.color.d_hd, getString(R.string.d_activity)));
         return items;
+    }
+
+    @Override
+    public void setListeners() {
+        super.setListeners();
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(mContext,""+position,Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     class DividerItemDecoration extends Y_DividerItemDecoration {
