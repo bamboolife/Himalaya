@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LifecycleObserver;
 
+import com.sundy.common.event.SingleLiveEvent;
 import com.sundy.common.mvvm.model.BaseModel;
 
 /**
@@ -21,5 +22,13 @@ public class BaseViewModel<M extends BaseModel> extends AndroidViewModel impleme
     public BaseViewModel(@NonNull Application application,M model) {
         super(application);
         this.mModel=model;
+    }
+
+
+    protected <T> SingleLiveEvent<T> createLiveData(SingleLiveEvent<T> liveData) {
+        if (liveData == null) {
+            liveData = new SingleLiveEvent<>();
+        }
+        return liveData;
     }
 }

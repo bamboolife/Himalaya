@@ -1,7 +1,6 @@
 package com.sundy.common.base;
 
 import android.content.Context;
-import android.database.DatabaseUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,7 @@ import androidx.databinding.ObservableList;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.chad.library.adapter.base.loadmore.LoadMoreView;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * 项目名称：Himalaya

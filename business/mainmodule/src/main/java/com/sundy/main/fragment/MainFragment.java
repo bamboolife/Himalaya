@@ -14,7 +14,6 @@ import com.sundy.common.base.BaseFragment;
 import com.sundy.common.config.Constants;
 import com.sundy.main.R;
 import com.sundy.main.databinding.BblMainFgtLayoutBinding;
-import com.sundy.main.databinding.BblMainLayoutBinding;
 
 import java.util.ArrayList;
 import java.util.List;

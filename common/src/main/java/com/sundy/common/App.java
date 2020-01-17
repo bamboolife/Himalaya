@@ -30,6 +30,12 @@ import me.yokeyword.fragmentation.helper.ExceptionHandler;
  * 描述：
  */
 public class App extends MultiDexApplication {
+    private static App instance;
+
+    public static App getInstance() {
+        return instance;
+    }
+
     {
         //设置全局的Header构建器
 //        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
@@ -59,6 +65,7 @@ public class App extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance=this;
        initRouter();
        initFragmentation();
     }

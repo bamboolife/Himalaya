@@ -2,6 +2,7 @@ package com.sundy.common.base;
 
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.sundy.common.App;
 import com.sundy.common.R;
 
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
@@ -28,6 +30,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends SwipeBack
     protected Context mContext;
     protected Activity mActivity;
     protected ARouter mRouter =ARouter.getInstance();
+    protected Application mApplication;
     //根部局
     protected View mView;
     protected DB mBinding;
@@ -38,6 +41,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends SwipeBack
         super.onCreate(savedInstanceState);
         mActivity=getActivity();
         mContext=getActivity().getApplicationContext();
+        mApplication= App.getInstance();
         mRouter.inject(this);
     }
 
