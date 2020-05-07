@@ -4,8 +4,8 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.sundy.himalaya"
-        minSdkVersion 19
+        applicationId "com.sundy.tbook"
+        minSdkVersion 20
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

@@ -59,7 +59,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends SwipeBack
             loadView();
             initViews(savedInstanceState);
             setListeners();
-
+            loadData();
         }
         if (enableSwipeBack()){
             attachToSwipeBack(mView);
@@ -77,7 +77,7 @@ public abstract class BaseFragment<DB extends ViewDataBinding> extends SwipeBack
             loadView();
             initViews(savedInstanceState);
             setListeners();
-            initData();
+            loadData();
         }
     }
 

@@ -15,28 +15,36 @@ import com.sundy.common.base.BaseRefreshMvvmFragment;
 import com.sundy.common.bean.SubscribeBean;
 import com.sundy.common.databinding.CommonLayoutListBinding;
 import com.sundy.listen.R;
+import com.sundy.listen.adapter.SubscribeAdapter;
+import com.sundy.listen.mvvm.ViewModelFactory;
 import com.sundy.listen.mvvm.viewmodel.SubscribeViewModel;
 
+
 /**
- * A simple {@link Fragment} subclass.
+ * 项目名称：Himalaya
+ *
+ * @Author bamboolife
+ * 邮箱：core_it@163.com
+ * 创建时间：2020-01-16 10:18
+ * 描述：我的订阅
  */
 public class SubscribeFragment extends BaseRefreshMvvmFragment<CommonLayoutListBinding, SubscribeViewModel, SubscribeBean> {
-
-
+    SubscribeAdapter mAdapter;
+    private View vFooter;
     @NonNull
     @Override
     protected WrapRefresh onBindWrapRefresh() {
-        return null;
+        return new WrapRefresh(mBinding.refreshLayout,null);
     }
 
     @Override
     protected ViewModelProvider.Factory onBindViewModelFactory() {
-        return null;
+        return ViewModelFactory.getInstance(mApplication);
     }
 
     @Override
     protected Class onBindViewModel() {
-        return null;
+        return SubscribeViewModel.class;
     }
 
     @Override
@@ -51,6 +59,6 @@ public class SubscribeFragment extends BaseRefreshMvvmFragment<CommonLayoutListB
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-
+        mAdapter=new SubscribeAdapter();
     }
 }

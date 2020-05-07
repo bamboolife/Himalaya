@@ -16,7 +16,9 @@ import androidx.databinding.ObservableList;
 import androidx.databinding.ViewDataBinding;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 项目名称：Himalaya
@@ -26,16 +28,16 @@ import java.util.Collection;
  * 创建时间：2020-01-16 16:08
  * 描述：
  */
-public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindViewHolder> {
+public abstract class BaseQuickAdapter<T, DB extends ViewDataBinding> extends RecyclerView.Adapter<BaseBindViewHolder> {
     private Context mContext;
-    ObservableList<T> datas;
+    List<T> datas;
     OnItemClickListener mOnItemClickListener;
 
     public BaseQuickAdapter() {
 
     }
 
-    public BaseQuickAdapter(@NonNull ObservableList<T> datas) {
+    public BaseQuickAdapter(@NonNull List<T> datas) {
 
         this.datas = datas;
     }
@@ -50,9 +52,8 @@ public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends View
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    @NonNull
     @Override
-    public BaseBindViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BaseBindViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.mContext = parent.getContext();
         DB binding = DataBindingUtil.inflate(LayoutInflater.from(mContext), onBindLayout(viewType), parent, false);
 
@@ -60,7 +61,7 @@ public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends View
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BaseBindViewHolder holder, int position) {
+    public void onBindViewHolder(BaseBindViewHolder holder, int position) {
         DB binding = DataBindingUtil.getBinding(holder.itemView);
         if (mOnItemClickListener != null) {
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
@@ -102,8 +103,8 @@ public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends View
      *
      * @param data
      */
-    public void setNewData(@Nullable ObservableList<T> data) {
-        this.datas = data == null ? new ObservableArrayList<>() : data;
+    public void setNewData(@Nullable List<T> data) {
+        this.datas = data == null ? new ArrayList<>() : data;
         notifyDataSetChanged();
     }
 
@@ -166,7 +167,7 @@ public abstract class BaseQuickAdapter<T extends BaseObservable, DB extends View
     }
 
     @NonNull
-    public ObservableList<T> getDatas() {
+    public List<T> getDatas() {
         return datas;
     }
 

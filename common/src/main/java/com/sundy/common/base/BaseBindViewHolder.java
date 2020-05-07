@@ -52,7 +52,7 @@ public class BaseBindViewHolder extends RecyclerView.ViewHolder {
 //    }
 //
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @BindingAdapter({"app:srcCompat","android:tint"})
+    @BindingAdapter(value = {"srcCompat","android:tint"})
     public static void setImageViewCompatResource(ImageView imageView,int resId,int colorId){
         imageView.setImageResource(resId);
         imageView.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(imageView.getContext(),colorId)));

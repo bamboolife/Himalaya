@@ -4,19 +4,11 @@ package com.sundy.discover.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.databinding.Observable;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.sundy.common.base.BaseFragment;
@@ -25,7 +17,6 @@ import com.sundy.common.config.Constants;
 import com.sundy.common.widget.itemdecoration.Y_Divider;
 import com.sundy.common.widget.itemdecoration.Y_DividerBuilder;
 import com.sundy.common.widget.itemdecoration.Y_DividerItemDecoration;
-import com.sundy.discover.BR;
 import com.sundy.discover.R;
 import com.sundy.discover.adapter.DiscoverAdapter;
 import com.sundy.discover.bean.DiscoverBean;
@@ -61,14 +52,14 @@ public class DiscoverFragment extends BaseFragment<BblDiscoverFgtLayoutBinding> 
     protected void initViews(Bundle savedInstanceState) {
 
         mAdapter = new DiscoverAdapter(getData());
-        mBinding.include.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mBinding.include.recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
-        mBinding.include.recyclerView.setAdapter(mAdapter);
+        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mBinding.recyclerView.addItemDecoration(new DividerItemDecoration(mContext));
+        mBinding.recyclerView.setAdapter(mAdapter);
 
     }
 
-    private ObservableList<DiscoverBean> getData() {
-        ObservableList<DiscoverBean> items = new ObservableArrayList<>();
+    private List<DiscoverBean> getData() {
+        List<DiscoverBean> items = new ArrayList<>();
         items.add(new DiscoverBean(R.drawable.ic_discover_ffjp, R.color.d_ffjp, getString(R.string.d_pay_good)));
         items.add(new DiscoverBean(R.drawable.ic_discover_qmld, R.color.d_qmld, getString(R.string.d_all_read)));
         items.add(new DiscoverBean(R.drawable.ic_discover_tyq, R.color.d_tyq, getString(R.string.d_listen_circle)));

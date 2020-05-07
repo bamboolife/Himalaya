@@ -16,7 +16,10 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle;
 import com.scwang.smart.refresh.layout.listener.DefaultRefreshFooterCreator;
 import com.scwang.smart.refresh.layout.listener.DefaultRefreshHeaderCreator;
+import com.sundy.common.helper.AppHelper;
+import com.sundy.common.helper.ThirdHelper;
 import com.sundy.common.widget.TRefreshHeader;
+import com.ximalaya.ting.android.opensdk.util.BaseUtil;
 
 import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.helper.ExceptionHandler;
@@ -62,41 +65,26 @@ public class App extends MultiDexApplication {
             }
         });
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        instance=this;
-       initRouter();
-       initFragmentation();
-    }
-
-    public void initRouter() {
-
-        if (BuildConfig.DEBUG) {
-            // 这两行必须写在init之前，否则这些配置在init过程中将无效
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        if (BaseUtil.isMainProcess(this)) {
+            instance = this;
+            ThirdHelper.getmInstance(this)
+                    .initRouter()
+                    .initFragmentation(true)
+                    .initUtils();
+            AppHelper.getInstance(this)
+                    .initXmly()
+                   // .initXmlyPlayer()
+                    .initXmlyDownloader();
         }
-        ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
+        if (BaseUtil.isPlayerProcess(this)){
+         AppHelper.getInstance(this).initXmlyPlayer();
+        }
     }
 
-    private void initFragmentation(){
-        Fragmentation.builder()
-                // 设置 栈视图 模式为 （默认）悬浮球模式   SHAKE: 摇一摇唤出  NONE：隐藏， 仅在Debug环境生效
-                .stackViewMode(Fragmentation.BUBBLE)
-                .debug(true) // 实际场景建议.debug(BuildConfig.DEBUG)
-                /**
-                 * 可以获取到{@link me.yokeyword.fragmentation.exception.AfterSaveStateTransactionWarning}
-                 * 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
-                 */
-                .handleException(new ExceptionHandler() {
-                    @Override
-                    public void onException(Exception e) {
-                        // 以Bugtags为例子: 把捕获到的 Exception 传到 Bugtags 后台。
-                        // Bugtags.sendException(e);
-                    }
-                })
-                .install();
-    }
+
 }

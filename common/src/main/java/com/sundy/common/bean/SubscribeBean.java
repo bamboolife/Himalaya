@@ -1,11 +1,15 @@
 package com.sundy.common.bean;
 
+import androidx.databinding.BaseObservable;
+
 import com.google.gson.Gson;
 import com.ximalaya.ting.android.opensdk.model.album.Album;
 
 import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.converter.PropertyConverter;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 项目名称：Himalaya
@@ -15,7 +19,8 @@ import org.greenrobot.greendao.converter.PropertyConverter;
  * 创建时间：2020-01-17 21:32
  * 描述：
  */
-public class SubscribeBean {
+@Entity
+public class SubscribeBean  {
     @Id
     private
     long albumId;
@@ -23,6 +28,49 @@ public class SubscribeBean {
     private
     Album album;
     private long datetime;
+
+
+    @Generated(hash = 400642637)
+    public SubscribeBean(long albumId, Album album, long datetime) {
+        this.albumId = albumId;
+        this.album = album;
+        this.datetime = datetime;
+    }
+
+
+    @Generated(hash = 781367487)
+    public SubscribeBean() {
+    }
+
+
+    public long getAlbumId() {
+        return this.albumId;
+    }
+
+
+    public void setAlbumId(long albumId) {
+        this.albumId = albumId;
+    }
+
+
+    public Album getAlbum() {
+        return this.album;
+    }
+
+
+    public void setAlbum(Album album) {
+        this.album = album;
+    }
+
+
+    public long getDatetime() {
+        return this.datetime;
+    }
+
+
+    public void setDatetime(long datetime) {
+        this.datetime = datetime;
+    }
 
 
     public static class AlbumConverter implements PropertyConverter<Album, String> {

@@ -8,6 +8,8 @@ import com.sundy.discover.R;
 import com.sundy.discover.bean.DiscoverBean;
 import com.sundy.discover.databinding.BblDiscoverFgtItemLayoutBinding;
 
+import java.util.List;
+
 /**
  * 项目名称：Himalaya
  *
@@ -17,7 +19,7 @@ import com.sundy.discover.databinding.BblDiscoverFgtItemLayoutBinding;
  * 描述：发现适配器
  */
 public class DiscoverAdapter extends BaseQuickAdapter<DiscoverBean, BblDiscoverFgtItemLayoutBinding> {
-    public DiscoverAdapter(@NonNull ObservableList<DiscoverBean> datas) {
+    public DiscoverAdapter(@NonNull List<DiscoverBean> datas) {
         super(datas);
     }
 

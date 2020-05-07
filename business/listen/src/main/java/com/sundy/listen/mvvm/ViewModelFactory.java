@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sundy.common.mvvm.model.BaseModel;
+import com.sundy.common.mvvm.model.QomolangmaModel;
 import com.sundy.listen.mvvm.viewmodel.SubscribeViewModel;
 
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +50,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
         if (SubscribeViewModel.class.isAssignableFrom(modelClass)) {
             //noinspection TryWithIdenticalCatches
             try {
-                return modelClass.getConstructor(Application.class, BaseModel.class).newInstance(mApplication,new BaseModel(mApplication));
+                return modelClass.getConstructor(Application.class, QomolangmaModel.class).newInstance(mApplication,new QomolangmaModel(mApplication));
             } catch (NoSuchMethodException e) {
                 throw new RuntimeException("Cannot create an instance of " + modelClass, e);
             } catch (IllegalAccessException e) {

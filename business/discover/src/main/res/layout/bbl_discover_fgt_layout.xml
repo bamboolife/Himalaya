@@ -15,13 +15,18 @@
         android:layout_height="match_parent"
         app:srlEnablePureScrollMode="true">
 
-
-        <include
-            android:id="@+id/include"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/common_recyclerview_layout"
-            />
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+<!--        <include-->
+<!--            android:id="@+id/include"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            layout="@layout/common_recyclerview_layout"-->
+<!--            />-->
 
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>
